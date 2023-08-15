@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="shortcut icon" href="#">
+        <link rel="stylesheet" href="styles.css">
+        <title>Circular symmetrical Fractals with CanvasJS</title>
+    </head>
+    <body>
+        <div id="controls">
+            <button id="random-button">Random</button>
+            <span>Spread: <label for="spread">0.0 rads</label></span>
+            <input id="spread" type="range" class="range-input" min="0" max="3.2" step="0.1" value="0.0">
+            <span>Sides: <label for="sides">2</label></span>
+            <input id="sides" type="range" class="range-input" min="2" max="24" step="1" value="2">
+            <span>Scale: <label for="scale">0.1</label></span>
+            <input id="scale" type="range" class="range-input" min="0.1" max="1.0" step="0.1" value="0.1">
+            <span>Width: <label for="line-width">5 px</label></span>
+            <input id="line-width" type="range" class="range-input" min="1" max="50" step="1" value="5">
+            <span>Size: <label for="size">5 px</label></span>
+            <input id="size" type="range" class="range-input" min="5" max="360" step="1" value="5">
+            <form id="single-form">
+                <input type="radio" id="single" class="radio-input" name="radio-single" value="true" checked>
+                <label>Single</label>
+                <input type="radio" id="paired" class="radio-input" name="radio-single" value="false">
+                <label>Paired</label>
+            </form>
+            <form id="simple-form">
+                <input type="radio" id="simple" class="radio-input" name="radio-simple" value="true" checked>
+                <label>Simple</label>
+                <input type="radio" id="dotted" class="radio-input" name="radio-simple" value="false">
+                <label>Dotted</label>
+            </form>
+            <button id="reset-button">Reset</button>
+        </div>
+        <canvas id="canvas"></canvas>
+        <script src="script.js"></script>
+    </body>
+</html>
