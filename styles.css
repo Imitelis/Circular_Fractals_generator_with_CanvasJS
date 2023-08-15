@@ -11,36 +11,62 @@ body {
 #canvas {
     background-color: black;
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
+    overflow: auto;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 #controls {
-    position: absolute;
+    position: fixed;
     z-index: 999;
     padding: 10px;
     border: 2.5px solid white;
     border-radius: 10px;
-    left: 20px;
-    top: 20px;
+    left: 15px;
+    top: 15px;
     width: 250px;
     background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
 }
 
 button {
-    padding: 10px 40px;
-    width: 230px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 100%;
     font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-family: sans-serif;
+    font-size: 20px;
+    border: 1px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.10);
+    transition: 0.2s ease-in-out;
+}
+
+button:first-child {
+    margin-bottom: 8px;
+}
+  
+button:last-child {
+    margin-top: 4px;
 }
 
 input, span, label {
     color: white;
+    font-family: sans-serif;
     font-size: 20px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
-  
+
 .range-input {
     -webkit-appearance: none;
     appearance: none; 
@@ -60,7 +86,7 @@ input, span, label {
     background-color: white;
     border-radius: 50%;
     border: none;
-    transition: .2s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
   
 .range-input::-moz-range-thumb {
@@ -69,15 +95,31 @@ input, span, label {
     background-color: white;
     border-radius: 50%;
     border: none;
-    transition: .2s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 
 .range-input:active::-webkit-slider-thumb, .range-input:active::-moz-range-thumb {
-    box-shadow: 0 0 0 7px rgba(255, 255, 255, .2);
+    box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.15);
 }
 
 .range-input:focus::-webkit-slider-thumb, .range-input:focus::-moz-range-thumb {
-    box-shadow: 0 0 0 7px rgba(255, 255, 255, .2);
+    box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.15);
+}
+
+#single-form, #dotted-form, #odd-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    padding: 0px 4px;
+}
+
+.label-container {
+    flex: 1;
+    text-align: left;
+    cursor: pointer;
+    padding-left: 8px;
 }
 
 .radio-input {
@@ -92,7 +134,61 @@ input, span, label {
 }
 
 .radio-input:active, .radio-input:focus, .radio-input:checked {
-    box-shadow: 0 0 0 7px rgba(255, 255, 255, .2);
+    box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.15);
 }
 
+@media (max-width: 1280px) {
+    #controls {
+      transform: scale(0.95);
+      transform-origin: top left;
+    }
+  }
   
+  @media (max-width: 1080px) {
+    #controls {
+      transform: scale(0.85);
+      transform-origin: top left;
+    }
+  }
+  
+  @media (max-width: 960px) {
+    #controls {
+      transform: scale(0.75);
+      transform-origin: top left;
+    }
+  }
+  
+  @media (max-width: 820px) {
+    #controls {
+      transform: scale(0.65);
+      transform-origin: top left;
+    }
+  }
+  
+  @media (max-width: 680px) {
+    #controls {
+      transform: scale(0.55);
+      transform-origin: top left;
+    }
+  }
+  
+  @media (max-width: 560px) {
+    #controls {
+      transform: scale(0.45);
+      transform-origin: top left;
+    }
+  }
+  
+  @media (max-width: 420px) {
+    #controls {
+      transform: scale(0.35);
+      transform-origin: top left;
+    }
+  }
+  
+  @media (max-width: 360px) {
+    #controls {
+      transform: scale(0.25);
+      transform-origin: top left;
+    }
+  }

@@ -12,8 +12,9 @@ window.addEventListener('load', function(){
     ctx.shadowBlur = 10;
     
     // fractal settings
-    let single = true;
+    let single = false;
     let simple = true;
+    let odd = false;
     const maxLevel = 4;
     const branches = 2;
 
@@ -37,13 +38,16 @@ window.addEventListener('load', function(){
     const sliderSize = document.getElementById("size");
     const labelSize = document.querySelector('[for="size"]');
     const radioSingle = document.getElementById("single");
-    const radioPaired = document.getElementById("paired");
+    const radioDoubled = document.getElementById("doubled");
     const radioSimple = document.getElementById("simple");
     const radioDotted = document.getElementById("dotted");
+    const radioOdd = document.getElementById("odd");
+    const radioEven = document.getElementById("even");
     const resetButton = document.getElementById("reset-button");
     
-    radioSingle.checked = true;
+    radioDoubled.checked = true;
     radioSimple.checked = true;
+    radioEven.checked = true;
 
     // functions
     function drawBranch(level) {
@@ -86,11 +90,20 @@ window.addEventListener('load', function(){
             }
         }
 
-        if (!simple) {
+        if (!simple && odd) {
             ctx.beginPath();
             ctx.arc(0, size, size * 0.1, 0, Math.PI * 2);
-            ctx.fill();            
-        }        
+            ctx.fill();
+            
+        } else if (!simple && !odd) {
+            ctx.beginPath();
+            ctx.arc(0, size, size * 0.1, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(0, -size, size * 0.1, 0, Math.PI * 2);
+            ctx.fill();
+        }      
     };
 
     function drawFractal() {
@@ -109,13 +122,14 @@ window.addEventListener('load', function(){
 
     function randomizeFractal(){
         spread = Math.floor(Math.random() * 8 + 2) * 0.1;
-        sides = Math.floor(Math.random() * 10 + 2);
+        sides = Math.floor(Math.random() * 22 + 2);
         scale = Math.floor(Math.random() * 4 + 4) * 0.1;
         color = `hsl(${Math.random() * 360}, 100%, 50%)`;
         lineWidth = Math.floor(Math.random() * 30 + 5);
-        size = Math.floor(Math.random() * 100 + 50);
+        size = canvas.height < canvas.width ? Math.min(Math.floor(canvas.height * 0.25), Math.floor(Math.random() * 75 + 75)): Math.min(Math.floor(canvas.width * 0.25), Math.floor(Math.random() * 75 + 75));
         simple = Math.random() < 0.5;
         single = Math.random() < 0.5;
+        odd = Math.random() < 0.5;
     };
 
     function updateSliders(){
@@ -130,9 +144,11 @@ window.addEventListener('load', function(){
         sliderSize.value = size;
         labelSize.innerText = Number(size) + ' px';
         radioSingle.checked = single;
-        radioPaired.checked = !single;
+        radioDoubled.checked = !single;
         radioSimple.checked = simple;
         radioDotted.checked = !simple;
+        radioOdd.checked = odd;
+        radioEven.checked = !odd;
     };
 
     drawFractal();
@@ -152,12 +168,15 @@ window.addEventListener('load', function(){
         color = 'hsl(148, 100%, 50%)';
         lineWidth = 12;
         size = 125;
-        single = true;
-        radioSingle.checked = true;
-        radioPaired.checked = false;
+        single = false;
+        radioSingle.checked = false;
+        radioDoubled.checked = true;
         simple = true;
         radioSimple.checked = true;
         radioDotted.checked = false;
+        odd = false;
+        radioOdd.checked = false;
+        radioEven.checked = true;
         updateSliders();
         drawFractal();
     });
@@ -195,14 +214,14 @@ window.addEventListener('load', function(){
     radioSingle.addEventListener('click', function(){
         single = true;
         radioSingle.checked = true;
-        radioPaired.checked = false;
+        radioDoubled.checked = false;
         drawFractal();
     });
 
-    radioPaired.addEventListener('click', function(){
+    radioDoubled.addEventListener('click', function(){
         single = false;
         radioSingle.checked = false;
-        radioPaired.checked = true;
+        radioDoubled.checked = true;
         drawFractal();
     });
 
@@ -220,10 +239,24 @@ window.addEventListener('load', function(){
         drawFractal();
     });
 
+    radioOdd.addEventListener('click', function(){
+        odd = true;
+        radioOdd.checked = true;
+        radioEven.checked = false;
+        drawFractal();
+    });
+
+    radioEven.addEventListener('click', function(){
+        odd = false;
+        radioOdd.checked = false;
+        radioEven.checked = true;
+        drawFractal();
+    });
+
     window.addEventListener('resize', function() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        size = 125;
+        size = canvas.height < canvas.width ? Math.min(Math.floor(canvas.height * 0.25), 125): Math.min(Math.floor(canvas.width * 0.25), 125);
         updateSliders();
         drawFractal();
     });

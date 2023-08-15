@@ -18,20 +18,26 @@
             <span>Scale: <label for="scale">0.1</label></span>
             <input id="scale" type="range" class="range-input" min="0.1" max="1.0" step="0.1" value="0.1">
             <span>Width: <label for="line-width">5 px</label></span>
-            <input id="line-width" type="range" class="range-input" min="1" max="50" step="1" value="5">
+            <input id="line-width" type="range" class="range-input" min="1" max="75" step="1" value="5">
             <span>Size: <label for="size">5 px</label></span>
-            <input id="size" type="range" class="range-input" min="5" max="360" step="1" value="5">
+            <input id="size" type="range" class="range-input" min="5" max="450" step="1" value="5">
             <form id="single-form">
                 <input type="radio" id="single" class="radio-input" name="radio-single" value="true" checked>
-                <label>Single</label>
-                <input type="radio" id="paired" class="radio-input" name="radio-single" value="false">
-                <label>Paired</label>
+                <label for="single" class="label-container">Single</label>
+                <input type="radio" id="doubled" class="radio-input" name="radio-single" value="false">
+                <label for="doubled" class="label-container">Doubled</label>
             </form>
-            <form id="simple-form">
+            <form id="dotted-form">
                 <input type="radio" id="simple" class="radio-input" name="radio-simple" value="true" checked>
-                <label>Simple</label>
+                <label for="simple" class="label-container">Simple</label>
                 <input type="radio" id="dotted" class="radio-input" name="radio-simple" value="false">
-                <label>Dotted</label>
+                <label for="dotted" class="label-container">Dotted</label>
+            </form>
+            <form id="odd-form">
+                <input type="radio" id="odd" class="radio-input" name="radio-odd" value="true" checked>
+                <label for="odd" class="label-container">Odd</label>
+                <input type="radio" id="even" class="radio-input" name="radio-even" value="false">
+                <label for="even" class="label-container">Even</label>
             </form>
             <button id="reset-button">Reset</button>
         </div>
