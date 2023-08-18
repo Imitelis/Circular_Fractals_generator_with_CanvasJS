@@ -105,7 +105,7 @@ input, span, label {
     box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.15);
 }
 
-#single-form, #dotted-form, #odd-form {
+#left-form, #single-form, #dotted-form, #odd-form {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="shortcut icon" href="#">
         <link rel="stylesheet" href="styles.css">
-        <title>Circular symmetrical Fractals with CanvasJS</title>
+        <title>Circular Fractals generator with CanvasJS</title>
     </head>
     <body>
         <div id="controls">
@@ -17,8 +17,8 @@
             <input id="sides" type="range" class="range-input" min="2" max="24" step="1" value="2">
             <span>Scale: <label for="scale">0.1</label></span>
             <input id="scale" type="range" class="range-input" min="0.1" max="1.0" step="0.1" value="0.1">
-            <span>Width: <label for="line-width">5 px</label></span>
-            <input id="line-width" type="range" class="range-input" min="1" max="75" step="1" value="5">
+            <span>Width: <label for="line-width">1 px</label></span>
+            <input id="line-width" type="range" class="range-input" min="1" max="75" step="1" value="1">
             <span>Size: <label for="size">5 px</label></span>
             <input id="size" type="range" class="range-input" min="5" max="450" step="1" value="5">
             <form id="single-form">
@@ -27,10 +27,16 @@
                 <input type="radio" id="doubled" class="radio-input" name="radio-single" value="false">
                 <label for="doubled" class="label-container">Doubled</label>
             </form>
+            <form id="left-form">
+                <input type="radio" id="left" class="radio-input" name="radio-left" value="true" checked>
+                <label for="left" class="label-container">Left</label>
+                <input type="radio" id="right" class="radio-input" name="radio-right" value="false">
+                <label for="right" class="label-container">Right</label>
+            </form>
             <form id="dotted-form">
-                <input type="radio" id="simple" class="radio-input" name="radio-simple" value="true" checked>
-                <label for="simple" class="label-container">Simple</label>
-                <input type="radio" id="dotted" class="radio-input" name="radio-simple" value="false">
+                <input type="radio" id="basic" class="radio-input" name="radio-basic" value="true" checked>
+                <label for="basic" class="label-container">Basic</label>
+                <input type="radio" id="dotted" class="radio-input" name="radio-basic" value="false">
                 <label for="dotted" class="label-container">Dotted</label>
             </form>
             <form id="odd-form">

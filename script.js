@@ -13,8 +13,9 @@ window.addEventListener('load', function(){
     
     // fractal settings
     let single = false;
-    let simple = true;
-    let odd = false;
+    let left = true;
+    let basic = false;
+    let odd = true;
     const maxLevel = 4;
     const branches = 2;
 
@@ -22,8 +23,8 @@ window.addEventListener('load', function(){
     let sides = 9;
     let scale = 0.5;
     let lineWidth = 12;
-    let size = 125;
-    let color = 'hsl(148, 100%, 50%)';
+    let size = canvas.height < canvas.width ? (Math.floor(canvas.height * 0.24)) : (Math.floor(canvas.width * 0.24));
+    let color = 'hsl(152, 100%, 50%)';
     
     // controls
     const randomButton = document.getElementById("random-button");
@@ -39,14 +40,17 @@ window.addEventListener('load', function(){
     const labelSize = document.querySelector('[for="size"]');
     const radioSingle = document.getElementById("single");
     const radioDoubled = document.getElementById("doubled");
-    const radioSimple = document.getElementById("simple");
+    const radioLeft = document.getElementById("left");
+    const radioRight = document.getElementById("right");
+    const radioBasic = document.getElementById("basic");
     const radioDotted = document.getElementById("dotted");
     const radioOdd = document.getElementById("odd");
     const radioEven = document.getElementById("even");
     const resetButton = document.getElementById("reset-button");
     
+    radioLeft.checked = true;
     radioDoubled.checked = true;
-    radioSimple.checked = true;
+    radioBasic.checked = true;
     radioEven.checked = true;
 
     // functions
@@ -57,7 +61,20 @@ window.addEventListener('load', function(){
         ctx.lineTo(size, 0);
         ctx.stroke();        
         
-        if (single) {
+        if (single && left) {
+            for (let i = 0; i < branches; i++) {
+                ctx.save();
+                ctx.translate(size - (size/branches) * i, spread);
+                ctx.scale(scale, scale)
+                
+                ctx.save()
+                ctx.rotate(-spread);
+                drawBranch(level + 1);
+                ctx.restore();
+    
+                ctx.restore();
+            }
+        } else if (single && !left) {
             for (let i = 0; i < branches; i++) {
                 ctx.save();
                 ctx.translate(size - (size/branches) * i, spread);
@@ -70,7 +87,7 @@ window.addEventListener('load', function(){
     
                 ctx.restore();
             }
-        } else {
+        } else if (!single) {
             for (let i = 0; i < branches; i++) {
                 ctx.save();
                 ctx.translate(size - (size/branches) * i, spread);
@@ -90,12 +107,12 @@ window.addEventListener('load', function(){
             }
         }
 
-        if (!simple && odd) {
+        if (!basic && odd) {
             ctx.beginPath();
             ctx.arc(0, size, size * 0.1, 0, Math.PI * 2);
             ctx.fill();
             
-        } else if (!simple && !odd) {
+        } else if (!basic && !odd) {
             ctx.beginPath();
             ctx.arc(0, size, size * 0.1, 0, Math.PI * 2);
             ctx.fill();
@@ -121,13 +138,14 @@ window.addEventListener('load', function(){
     };
 
     function randomizeFractal(){
-        spread = Math.floor(Math.random() * 8 + 2) * 0.1;
-        sides = Math.floor(Math.random() * 22 + 2);
+        spread = Math.floor(Math.random() * 16) * 0.1;
+        sides = Math.floor(Math.random() * 14 + 2);
         scale = Math.floor(Math.random() * 4 + 4) * 0.1;
         color = `hsl(${Math.random() * 360}, 100%, 50%)`;
-        lineWidth = Math.floor(Math.random() * 30 + 5);
-        size = canvas.height < canvas.width ? Math.min(Math.floor(canvas.height * 0.25), Math.floor(Math.random() * 75 + 75)): Math.min(Math.floor(canvas.width * 0.25), Math.floor(Math.random() * 75 + 75));
-        simple = Math.random() < 0.5;
+        lineWidth = Math.floor(Math.random() * 32 + 4);
+        size = canvas.height < canvas.width ? (Math.floor(canvas.height * 0.24) + Math.floor(Math.random() * 56) - 24) : (Math.floor(canvas.width * 0.24) + Math.floor(Math.random() * 56) - 24);
+        left = Math.random() < 0.5;
+        basic = Math.random() < 0.5;
         single = Math.random() < 0.5;
         odd = Math.random() < 0.5;
     };
@@ -145,8 +163,10 @@ window.addEventListener('load', function(){
         labelSize.innerText = Number(size) + ' px';
         radioSingle.checked = single;
         radioDoubled.checked = !single;
-        radioSimple.checked = simple;
-        radioDotted.checked = !simple;
+        radioLeft.checked = left;
+        radioRight.checked = !left;
+        radioBasic.checked = basic;
+        radioDotted.checked = !basic;
         radioOdd.checked = odd;
         radioEven.checked = !odd;
     };
@@ -165,18 +185,21 @@ window.addEventListener('load', function(){
         sides = 9;
         scale = 0.5;
         spread = 0.7;
-        color = 'hsl(148, 100%, 50%)';
+        color = 'hsl(152, 100%, 50%)';
         lineWidth = 12;
-        size = 125;
+        size = canvas.height < canvas.width ? (Math.floor(canvas.height * 0.24)) : (Math.floor(canvas.width * 0.24));
         single = false;
-        radioSingle.checked = false;
-        radioDoubled.checked = true;
-        simple = true;
-        radioSimple.checked = true;
-        radioDotted.checked = false;
-        odd = false;
-        radioOdd.checked = false;
-        radioEven.checked = true;
+        radioSingle.checked = single;
+        radioDoubled.checked = !single;
+        left = true;
+        radioLeft.checked = left;
+        radioRight.checked = !left;
+        basic = false;
+        radioBasic.checked = basic;
+        radioDotted.checked = !basic;
+        odd = true;
+        radioOdd.checked = odd;
+        radioEven.checked = !odd;
         updateSliders();
         drawFractal();
     });
@@ -213,50 +236,64 @@ window.addEventListener('load', function(){
 
     radioSingle.addEventListener('click', function(){
         single = true;
-        radioSingle.checked = true;
-        radioDoubled.checked = false;
+        radioSingle.checked = single;
+        radioDoubled.checked = !single;
         drawFractal();
     });
 
     radioDoubled.addEventListener('click', function(){
         single = false;
-        radioSingle.checked = false;
-        radioDoubled.checked = true;
+        radioSingle.checked = single;
+        radioDoubled.checked = !single;
+        drawFractal();
+    });
+    
+    radioLeft.addEventListener('click', function(){
+        left = true;
+        radioLeft.checked = left;
+        radioRight.checked = !left;
         drawFractal();
     });
 
-    radioSimple.addEventListener('click', function(){
-        simple = true;
-        radioSimple.checked = true;
-        radioDotted.checked = false;
+    radioRight.addEventListener('click', function(){
+        left = false;
+        radioLeft.checked = left;
+        radioRight.checked = !left;
+        drawFractal();
+    });
+
+    radioBasic.addEventListener('click', function(){
+        basic = true;
+        radioBasic.checked = basic;
+        radioDotted.checked = !basic;
         drawFractal();
     });
 
     radioDotted.addEventListener('click', function(){
-        simple = false;
-        radioSimple.checked = false;
-        radioDotted.checked = true;
+        basic = false;
+        radioBasic.checked = basic;
+        radioDotted.checked = !basic;
         drawFractal();
     });
 
     radioOdd.addEventListener('click', function(){
         odd = true;
-        radioOdd.checked = true;
-        radioEven.checked = false;
+        radioOdd.checked = odd;
+        radioEven.checked = !odd;
         drawFractal();
     });
 
     radioEven.addEventListener('click', function(){
         odd = false;
-        radioOdd.checked = false;
-        radioEven.checked = true;
+        radioOdd.checked = odd;
+        radioEven.checked = !odd;
         drawFractal();
     });
 
     window.addEventListener('resize', function() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        size = canvas.height < canvas.width ? Math.min(Math.floor(canvas.height * 0.25), 125): Math.min(Math.floor(canvas.width * 0.25), 125);
+        size = canvas.height < canvas.width ? (Math.floor(canvas.height * 0.24)) : (Math.floor(canvas.width * 0.24));
         updateSliders();
         drawFractal();
     });
