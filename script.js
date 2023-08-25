@@ -183,8 +183,8 @@ function updateControls() {
   radioEven.checked = !odd;
 }
 
-drawFractal();
 updateControls();
+drawFractal();
 
 // eventListeners
 randomButton.addEventListener("click", function () {
