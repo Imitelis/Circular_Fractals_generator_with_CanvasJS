@@ -50,9 +50,13 @@ const radioOdd = document.getElementById("odd");
 const radioEven = document.getElementById("even");
 const resetButton = document.getElementById("reset-button");
 
-radioLeft.checked = true;
+radioSingle.checked = false;
 radioDoubled.checked = true;
+radioLeft.checked = true;
+radioRight.checked = false;
 radioBasic.checked = true;
+radioDotted.checked = false;
+radioOdd.checked = false;
 radioEven.checked = true;
 
 // functions
@@ -158,7 +162,7 @@ function randomizeFractal() {
   odd = Math.random() < 0.5;
 }
 
-function updateSliders() {
+function updateControls() {
   sliderSpread.value = spread;
   labelSpread.innerText = Number(spread).toFixed(2) + " rads";
   sliderSides.value = sides;
@@ -180,12 +184,12 @@ function updateSliders() {
 }
 
 drawFractal();
-updateSliders();
+updateControls();
 
 // eventListeners
 randomButton.addEventListener("click", function () {
   randomizeFractal();
-  updateSliders();
+  updateControls();
   drawFractal();
 });
 
@@ -211,37 +215,37 @@ resetButton.addEventListener("click", function () {
   odd = true;
   radioOdd.checked = odd;
   radioEven.checked = !odd;
-  updateSliders();
+  updateControls();
   drawFractal();
 });
 
 sliderSpread.addEventListener("change", function (event) {
   spread = event.target.value;
-  updateSliders();
+  updateControls();
   drawFractal();
 });
 
 sliderSides.addEventListener("change", function (event) {
   sides = event.target.value;
-  updateSliders();
+  updateControls();
   drawFractal();
 });
 
 sliderScale.addEventListener("change", function (event) {
   scale = event.target.value;
-  updateSliders();
+  updateControls();
   drawFractal();
 });
 
 sliderLineWidth.addEventListener("change", function (event) {
   lineWidth = event.target.value;
-  updateSliders();
+  updateControls();
   drawFractal();
 });
 
 sliderSize.addEventListener("change", function (event) {
   size = event.target.value;
-  updateSliders();
+  updateControls();
   drawFractal();
 });
 
@@ -308,6 +312,6 @@ window.addEventListener("resize", function () {
     canvas.height < canvas.width
       ? Math.floor(canvas.height * 0.24)
       : Math.floor(canvas.width * 0.24);
-  updateSliders();
+  updateControls();
   drawFractal();
 });
